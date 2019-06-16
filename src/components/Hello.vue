@@ -41,4 +41,5 @@ export default Vue.extend({
 &__greeting {
     font-size: 20px;
 }
+}
 </style>
