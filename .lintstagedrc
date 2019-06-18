@@ -1,0 +1,8 @@
+{
+  "*.js": ["prettier --write", "git add", "eslint --color", "jest --findRelatedTests"],
+  "{*.json,.!(browserslist|npm)*rc}": ["prettier --parser json --write", "git add"],
+  "*.ts": ["prettier --write", "git add", "tslint", "jest --findRelatedTests"],
+  "*.vue": ["prettier --write", "stylelint --fix", "git add", "jest --findRelatedTests"],
+  "*.scss": ["prettier --write", "stylelint --syntax=scss --fix", "git add"],
+  "*.md": ["prettier --write", "git add", "markdownlint"]
+}
