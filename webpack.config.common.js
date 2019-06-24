@@ -39,11 +39,6 @@ const webpackConfig = {
         },
       },
       {
-        test: /\.scss$/,
-        loader: 'sass-loader',
-        options: { sourceMap: true },
-      },
-      {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
         options: {
