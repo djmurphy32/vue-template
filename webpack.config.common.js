@@ -1,4 +1,5 @@
 const path = require('path')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const webpackConfig = {
   entry: './src/web-client/index.ts',
@@ -7,21 +8,27 @@ const webpackConfig = {
     publicPath: '/dist/',
     filename: 'build.js',
   },
+  resolve: {
+    extensions: ['.ts', '.js', '.vue', '.json'],
+    alias: {
+      vue$: 'vue/dist/vue.esm.js',
+      '@': path.resolve(__dirname, 'src/web-client'),
+    },
+  },
   module: {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          loaders: {
-            // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
-            // the "scss" and "sass" values for the lang attribute to the right configs here.
-            // other preprocessors should work out of the box, no loader config like this necessary.
-            scss: 'vue-style-loader!css-loader!sass-loader',
-            sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax',
+        use: [
+          {
+            loader: 'vue-loader',
+            options: {
+              compilerOptions: {
+                preserveWhitespace: false,
+              },
+            },
           },
-          // other vue-loader options go here
-        },
+        ],
       },
       {
         test: /\.tsx?$/,
@@ -43,8 +50,31 @@ const webpackConfig = {
           name: '[name].[ext]?[hash]',
         },
       },
+      {
+        test: /\.scss$/,
+        include: [path.resolve(__dirname, 'src/web-client')],
+        use: [
+          {
+            loader: 'vue-style-loader',
+            options: { sourceMap: true, shadowMode: false },
+          },
+          {
+            loader: 'css-loader',
+            options: { sourceMap: true, importLoaders: 2 },
+          },
+          {
+            loader: 'postcss-loader',
+            options: { sourceMap: true },
+          },
+          {
+            loader: 'sass-loader',
+            options: { sourceMap: true },
+          },
+        ],
+      },
     ],
   },
+  plugins: [new VueLoaderPlugin()],
 }
 
 module.exports = webpackConfig
