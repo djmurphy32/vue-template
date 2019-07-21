@@ -41,9 +41,10 @@ const webpackConfig = {
       {
         test: /\.(png|jpg|gif|svg)$/,
         include: [path.resolve(__dirname, 'src/web-client')],
-        loader: 'file-loader',
+        loader: 'file-loader?outputPath=images/',
         options: {
           name: '[name].[ext]?[hash]',
+          outputPath: 'images',
         },
       },
       {
