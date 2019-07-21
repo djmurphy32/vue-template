@@ -8,6 +8,7 @@
     "build": "webpack",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --progress",
     "staging": "cross-env NODE_ENV=staging webpack",
+    "prod": "cross-env NODE_ENV=production webpack",
     "test": "jest"
   },
   "author": "",
