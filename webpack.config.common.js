@@ -6,7 +6,6 @@ const webpackConfig = {
   entry: './src/web-client/index.ts',
   output: {
     path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
     filename: 'build.js',
   },
   resolve: {
@@ -41,6 +40,7 @@ const webpackConfig = {
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
+        include: [path.resolve(__dirname, 'src/web-client')],
         loader: 'file-loader',
         options: {
           name: '[name].[ext]?[hash]',
@@ -65,6 +65,15 @@ const webpackConfig = {
           {
             loader: 'sass-loader',
             options: { sourceMap: true },
+          },
+          {
+            loader: 'sass-resources-loader',
+            options: {
+              resources: [
+                './src/web-client/styles/functions/_layout.scss',
+                './src/web-client/styles/variables/_all.scss',
+              ],
+            },
           },
         ],
       },

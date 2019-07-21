@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
+const CopyPlugin = require('copy-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
@@ -13,7 +14,6 @@ const webpackConfig = merge(commonConfig, {
   mode: 'production',
   output: {
     path: path.resolve(__dirname, './dist'),
-    publicPath: '/',
     filename: 'js/[hash].js',
     chunkFilename: 'js/[id].[hash].chunk.js',
   },
@@ -66,6 +66,7 @@ const webpackConfig = merge(commonConfig, {
       minRatio: 0.8,
     }),
     new webpack.HashedModuleIdsPlugin(),
+    new CopyPlugin([{ from: '_redirects' }]),
   ],
 })
 
